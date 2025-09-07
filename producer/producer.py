@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
-
 from kafka import KafkaProducer
 from requests_sse import EventSource
 import logging
 import traceback
+import os
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 def stream_wikimedia_to_kafka():
+    print(os.environ.get('KAFKA_BROKER_ADDRESS'))
     producer = KafkaProducer(
-        bootstrap_servers=['localhost:9092'],
-        batch_size=64000,  # 16KB batches to accommodate ~100 messages
-        linger_ms=100,     # Wait up to 100ms to fill batches
-        max_in_flight_requests_per_connection=5
+        bootstrap_servers=[os.environ.get('KAFKA_BROKER_ADDRESS')],
+        batch_size=64000,
+        linger_ms=100
     )
     
     wikimedia_url = 'http://stream.wikimedia.org/v2/stream/recentchange'

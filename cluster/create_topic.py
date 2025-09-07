@@ -6,7 +6,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def create_kafka_topic():
-    admin_client = KafkaAdminClient(bootstrap_servers=['localhost:9092'])
+    admin_client = KafkaAdminClient(bootstrap_servers=['kafka-service:29092'])
     
     topic = NewTopic(
         name='test-topic',

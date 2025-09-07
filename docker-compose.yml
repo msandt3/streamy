@@ -1,0 +1,32 @@
+services:
+  kafka-service:
+    image: apache/kafka:4.1.0
+    hostname: kafka
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    healthcheck:
+      test: ["CMD", "./opt/kafka/bin/kafka-topics.sh", "--bootstrap-server=kafka:29092", "--list"]
+      interval: 15s
+      start_period: 30s
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: LISTENER_INTERNAL://kafka:29092,LISTENER_EXTERNAL://kafka:9092,CONTROLLER://kafka:9093
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_INTERNAL://kafka:29092,LISTENER_EXTERNAL://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_INTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT,LISTENER_EXTERNAL:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_INTERNAL
+
+  init-kafka:
+    build: ./cluster
+    depends_on:
+      kafka-service:
+        condition: service_healthy
+
+  producer:
+    build: ./producer
+    depends_on: [kafka-service, init-kafka]
+    environment:
+      KAFKA_BROKER_ADDRESS: kafka:29092
