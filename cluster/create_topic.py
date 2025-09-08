@@ -10,7 +10,7 @@ def create_kafka_topic():
     
     topic = NewTopic(
         name='test-topic',
-        num_partitions=3,
+        num_partitions=1,
         replication_factor=1
     )
     
