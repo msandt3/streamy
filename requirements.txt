@@ -1,2 +1,6 @@
 kafka-python==2.2.15
 requests-sse
+dlt
+streamlit
+confluent-kafka>=2.3.0
+dlt[duckdb]>=0.5.1
