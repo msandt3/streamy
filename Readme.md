@@ -27,3 +27,10 @@ Once you shut down the consumer - you can inspect the loads with
 ```bash
 dlt pipeline kafka_pipeline show
 ```
+
+
+Run the tests
+
+```bash
+python -m pytest consumer/tests/*.py
+```
