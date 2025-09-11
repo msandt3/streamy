@@ -5,6 +5,7 @@ The components are as follows:
 - Cluster - this is the Kafka Cluster
 - Producer - this is a simple app that reads the wiki event stream and pipes those to a Kafka Topic
 - Consumer - this is the "client" application. Here we read records off the stream and pipe batches to be loaded into duckdb. 
+- Right now its not doing anything other than writing to duckdb. 
 
 Getting it up & Running
 

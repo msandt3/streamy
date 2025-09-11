@@ -27,13 +27,18 @@ def kafka_consumer(topic: str, batch_size = 500):
 
 
 def _process_message(msg):
+    try:
+        data = json.loads(msg.value) if msg.value else {}
+    except (json.JSONDecodeError, TypeError):
+        data = {}
+
     return {
         "_kafka": {
             "topic": msg.topic,  # required field
             "key": msg.key,
             "partition": msg.partition,
         },
-        "data": json.loads(msg.value),
+        "data": data,
     }
 
         
