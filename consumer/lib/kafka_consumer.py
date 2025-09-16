@@ -6,7 +6,7 @@ import json
 def kafka_consumer(topic: str, batch_size = 500):
     consumer = KafkaConsumer(
         topic, 
-        bootstrap_servers=['localhost:9092'], 
+        bootstrap_servers=['localhost:9092'], # TODO - this should be an ENV var for prod
         auto_offset_reset='earliest', # read from earliest offset
         max_poll_records = 500,
         value_deserializer = lambda m: m.decode('utf-8'),
