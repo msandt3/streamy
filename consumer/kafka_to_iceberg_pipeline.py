@@ -16,5 +16,4 @@ def kafka_to_filesystem_iceberg() -> None:
     
 
 if __name__ == "__main__":
-    dlt.config['destination.parquet.store_decimal_as_integer'] = False
     kafka_to_filesystem_iceberg()
