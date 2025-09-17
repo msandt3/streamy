@@ -1,6 +1,5 @@
 import dlt
 from lib.kafka_consumer import kafka_consumer
-from dlt.destinations import filesystem
 
 
 def kafka_to_filesystem_iceberg() -> None:
