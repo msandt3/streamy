@@ -5,3 +5,4 @@ dlt[filesystem, pyiceberg, parquet]
 pyarrow
 pyiceberg<=0.9.1 # needed for compatibility - https://github.com/dlt-hub/dlt/commit/dccf9633423110bb2b3dc71388b6479e6e8978c6
 sqlalchemy>=2.0.18
+pytest
